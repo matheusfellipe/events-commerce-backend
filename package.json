@@ -2,7 +2,7 @@
    "name": "events-commerce",
    "version": "1.0.0",
    "description": "Backend for events e-commerce",
-   "main": "index.js",
+   "main": "server.js",
    "scripts": {
       "dev": "nodemon --exec ts-node src/server.ts",
       "start": "ts-node src/server.ts",

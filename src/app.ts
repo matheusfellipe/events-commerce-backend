@@ -24,8 +24,8 @@ const swaggerDocs = swaggerDocument(swaggerOptions);
 app.use(cors());
 app.use(bodyParser.json());
 app.use(logger('dev'));
-app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(swaggerDocs));
 
-app.use('/usuario',routerUser);
+app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(swaggerDocs));
+app.use('/user',routerUser);
 app.use('/',(req,res)=> res.send('API of app Events Commerce'));
 
