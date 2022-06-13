@@ -1,22 +1,12 @@
-import { AppDataSource } from "./data-source"
-import { User } from "./models/User"
+import { app } from "./app";
 
-AppDataSource.initialize().then(async () => {
+const PORT = 3000;
 
-    console.log("Inserting a new user into the database...")
-    const user = new User()
-    user.firstName = "Timber";
-    user.lastName = "Saw";
-    user.cpf=12345678910;
-    user.email="fulano@gamil.com";
- 
-    await AppDataSource.manager.save(user)
-   
+app.listen(PORT);
 
-    console.log("Loading users from the database...")
-    const users = await AppDataSource.manager.find(User)
-    console.log("Loaded users: ", users)
+const server = app.listen(PORT,()=> console.log(`App is listening on port ${PORT}`));
 
-    console.log("Here you can setup and run express / fastify / any other framework.")
-
-}).catch(error => console.log(error))
+process.on('SIGINT',()=>{
+    server.close();
+    console.log('finished app')
+})
