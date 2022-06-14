@@ -1,5 +1,6 @@
 import {Request,Response} from 'express';
-import { User } from "../models/User";
+import { User } from "../models/user";
+import { badRequest, internalServerError, validateNumber, notFound, ok } from '../utils/generics-responses';
 
 interface UserBody {
     firstname: string;
@@ -14,7 +15,7 @@ export const getUsers = async (req: Request,res:Response) => {
         return res.json(users)
     } catch (error){
         if (error instanceof Error){
-            return res.status(500).json({message:error.message})
+            return internalServerError
         }
     }
 };
@@ -24,10 +25,10 @@ export const getUser = async (req:Request,res:Response) => {
         const {id} = req.params;
         const user = await User.findOneBy({user_id: parseInt(id)});
 
-        if(!user) return res.status(404).json({message:"User not found"})
+        if(!user) return notFound
     } catch (error){
         if (error instanceof Error){
-            return res.status(500).json({message:error.message})
+            return internalServerError
         }
     }
 };

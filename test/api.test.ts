@@ -19,7 +19,7 @@ describe('API E2E Test Suite',()=>{
             cpf: 12345678912,
             email:'silva@gmail.com'
           })
-        const expectedResponse = { ok:  1}
+        const expectedResponse = { ok:  200}
         expect(JSON.parse(response.text)).toStrictEqual(expectedResponse)
       })
 
