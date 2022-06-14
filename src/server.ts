@@ -2,7 +2,7 @@ import { app } from "./app";
 import { AppDataSource } from "./db";
 
 const PORT = 3000;
-// const server = app.listen(PORT,()=> console.log(`App is listening on port ${PORT}`));
+
 
 async function main(){
     try{

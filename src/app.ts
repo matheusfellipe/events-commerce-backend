@@ -6,7 +6,8 @@ import { AppDataSource } from './db';
 import * as swaggerUi from 'swagger-ui-express';
 import * as swaggerDocument from 'swagger-jsdoc';
 
-import userRoutes from './routes/usersRoute';
+import userRoutes from './routes/users.route';
+
 
 AppDataSource
 .initialize()
@@ -22,12 +23,16 @@ export const app = express();
 const swaggerOptions = {
     swaggerDefinition: {
         info: {
-            title: 'Library API',
-            version: '1.0.0'
+          version: "1.0.0",
+          title: "Events Commerce API",
+          description: "Events API Information",
+          servers: ["http://localhost:3000"]
         }
-    },
-    apis: ['app.js']
+      },
+      // ['.routes/*.ts']
+      apis: ['.routes/*.ts']
 }
+
 
 const swaggerDocs = swaggerDocument(swaggerOptions);
 
@@ -36,7 +41,9 @@ app.use(bodyParser.json());
 app.use(logger('dev'));
 
 app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(swaggerDocs));
+// router.get('/api-docs',swaggerUi.setup(swaggerDocs))
 
-app.use('/user', userRoutes);
-app.use('/',(req,res)=> res.send('API of app Events Commerce'));
+
+app.use('/api', userRoutes);
+
 
