@@ -6,7 +6,8 @@ import { AppDataSource } from './db';
 import * as swaggerUi from 'swagger-ui-express';
 import * as swaggerDocument from 'swagger-jsdoc';
 
-import userRoutes from './routes/user.route';
+import userRoutes from './routes/usersRoute';
+import eventRoutes from './routes/eventRoute'
 
 
 AppDataSource
@@ -45,5 +46,6 @@ app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(swaggerDocs));
 
 
 app.use('/api', userRoutes);
+app.use('/api', eventRoutes);
 
 
