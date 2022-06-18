@@ -1,4 +1,4 @@
-import { inject,injectable } from "tsyringe";
+import { injectAll,injectable } from "tsyringe";
 
 import User from "../models/Users";
 import userRepository from "../repositories/userRepository";
@@ -12,10 +12,11 @@ interface IRequest {
 
   @injectable()
 class CreateUserService {
-  constructor(
-    @inject('userRepository')
-    private userRepository: userRepository,
-  ) {}
+  userRepository: userRepository
+
+  constructor( userRepository: userRepository) {
+this.userRepository = userRepository;
+  }
 
   public async execute({ userName, email,password,isAdmin }: IRequest): Promise<User> {
     const checkCustomersExists = await this.userRepository.findByEmail(

@@ -2,8 +2,9 @@ import { Request, Response } from 'express';
 
 import CreateUserService from '../services/CreateUserService';
 
-import { container } from 'tsyringe';
+import { autoInjectable, container } from 'tsyringe';
 
+@autoInjectable()
 export default class UsersController {
   public async create(request: Request, response: Response): Promise<Response> {
     const { email, userName,password,isAdmin } = request.body;
