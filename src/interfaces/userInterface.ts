@@ -1,5 +1,5 @@
 import User from "../models/Users";
-import UserBody from "./userBody";
+import UserBody from "./userCreate";
 
 export default interface userInterface {
     create(data:UserBody): Promise<User>;

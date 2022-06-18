@@ -1,4 +1,4 @@
-import { injectAll,injectable } from "tsyringe";
+import { injectable } from "tsyringe";
 
 import User from "../models/Users";
 import userRepository from "../repositories/userRepository";
@@ -12,7 +12,7 @@ interface IRequest {
 
   @injectable()
 class CreateUserService {
-  userRepository: userRepository
+  userRepository: userRepository;
 
   constructor( userRepository: userRepository) {
 this.userRepository = userRepository;

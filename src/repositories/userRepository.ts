@@ -1,5 +1,5 @@
 import  User  from "../models/Users";
-import UserBody from "../interfaces/userBody";
+import UserBody from "../interfaces/userCreate";
 import userInterface from "../interfaces/userInterface";
 import { AppDataSource } from "../db";
 

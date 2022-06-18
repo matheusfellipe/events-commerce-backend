@@ -1,49 +1,21 @@
-import { Request, Response } from "express";
-import  Event  from "../models/Events";
+import { Request,response,Response } from "express";
 
-interface EventBody {
-    name: string;
-    price:number;
-    tickets: number;
-    description: string;
-    address: string;
-}
+import CreateEventService from "../services/CreateEventService";
 
-export const createEvent = async (
-    req: Request<EventBody>,
-    res: Response
-) => {
-    const {name,price,tickets,description,adrress} = req.body;
-    const event = new Event();
-    event.name = name;
-    event.price = price;
-    event.tickets = tickets;
-    event.description = description;
-    event.address = adrress;
-    await event.save();
-    return res.json(event);
-};
+import { container } from "tsyringe";
 
-export const findByName = async (req:Request,res:Response) => {
-    try {
+export default class eventsController {
+    public async create(req:Request,res:Response):Promise<Response>{
+        const {name,price,tickets,description,address} = req.body;
+const eventService = container.resolve(CreateEventService);
 
-    } catch (error) {
-
-    }
-}
-
-export const findAllById = async (req:Request,res:Response) => {
-    try {
-
-    } catch (error) {
-        
-    }
-}
-
-export const updateQuantity = async (req:Request,res:Response) => {
-    try {
-
-    } catch (error) {
-        
+const event = await eventService.execute({
+    name,
+    price,
+    tickets,
+    description,
+    address
+});
+return res.json(event);
     }
 }
