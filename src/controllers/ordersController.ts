@@ -1,29 +1,31 @@
-// import { Request,Response } from "express";
-import Order from "../models/Orders";
-import Event from "../models/Events";
-// import { getUserById } from "./usersController"; 
-import { badRequest, internalServerError, validateNumber, notFound, ok } from '../utils/generics.responses';
+import { Request,Response } from "express";
+import { json } from "stream/consumers";
 
+import {container} from 'tsyringe';
 
-interface Events {
-    event_id: number;
-    ticket: number;
-}
+import CreateOrderService from '../services/CreateOrderService';
+import FindOrderService from '../services/FindOrderService';
 
-interface Request {
-    user_id: number;
-    event: Event[];
-}
+export default class OrdersController{
+   
+    // public async show(request:Request,response:Response): Promise<Response>{
+    //     const {event_id} = request.params;
 
-export const execute = async (
-{user_id,event}:Request,req,res
-)=> {
-    const {id} = req.params;
-    // const user = await User.findOneBy({user_id:id});
-    // if(!user){
-    //     throw notFound
+    //     const findOrderService = container.resolve(FindOrderService);
+    //     const order = await findOrderService.execute({
+    //         event_id,
+    //     });
+    //     return response,json(order);
     // }
+    
+    public async create(request:Request,response:Response): Promise<Response>{
+        const {user_id,event} = request.body;
 
-    const eventFind = await Event.find() 
+        const createOrderService = container.resolve(CreateOrderService);
+        const orders = await createOrderService.execute({
+            user_id,
+            event
+        });
+        return response.json(orders);
+    }
 }
-

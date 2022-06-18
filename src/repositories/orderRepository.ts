@@ -18,8 +18,10 @@ class OrderRepository implements OrderInterface{
  }
 
  public async findById(order_id: number): Promise<Order | undefined> {
-     const order = await dataSource.manager.findOne(Order,{
- relations: ['order_events','user']
+     
+     const order = await Order.findOne({
+
+ relations: ['order_events','user'],
      })
 
      return order;
