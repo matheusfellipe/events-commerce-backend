@@ -1,7 +1,7 @@
 import Event from "../models/Events";
 
 import eventBody from "../interfaces/eventCreate";
-import UpdateEvents from "../interfaces/eventUpdate";
+import UpdateEvents from "./updateTicketQuantity";
 
 interface FindEvent {
     event_id: number;

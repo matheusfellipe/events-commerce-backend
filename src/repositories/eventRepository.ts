@@ -1,7 +1,7 @@
 import { AppDataSource } from "../db";
 
 import EventBody from "../interfaces/eventCreate";
-import UpdateEvents from "../interfaces/eventUpdate";
+import UpdateEvents from "../interfaces/updateTicketQuantity";
 import EventInterface from "../interfaces/eventInterface";
 import Events from "../models/Events";
 import { In } from "typeorm";

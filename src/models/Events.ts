@@ -42,7 +42,6 @@ export default class Event extends BaseEntity {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @Column()
-  show: Date;
+  
  
 }
