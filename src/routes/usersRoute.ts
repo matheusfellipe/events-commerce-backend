@@ -1,32 +1,11 @@
 import { Router } from "express";
-import {
-  getUsers,
-  getUser,
-  createUser,
-  updateUser,
-  deleteUser,
-} from '../controllers/usersController';
+import UsersController from "../controllers/usersController";
+
 
 const router = Router();
+const usersController = new UsersController
 
 
-/**
- * @swagger
- * /users:
- * get:
- *  description: Use to request all users
- *  responses:
- *    '200':
- *      description: Aa successful response
- */
-router.get("/users", getUsers);
-
-router.get("/users/:id", getUser);
-
-router.post("/users", createUser);
-
-router.put("/users/:id", updateUser);
-
-router.delete("/users/:id", deleteUser);
+router.post('/users',usersController.create)
 
 export default router;

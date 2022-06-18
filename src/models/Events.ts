@@ -42,7 +42,7 @@ export default class Event extends BaseEntity {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @Column({type:'timestamp with local time zone'})
+  @Column()
   show: Date;
  
 }
