@@ -1,6 +1,7 @@
 import { Request,response,Response } from "express";
 
 import CreateEventService from "../services/CreateEventService";
+import SearchEventService from "../services/SearchEventService";
 
 import { container } from "tsyringe";
 
@@ -17,5 +18,15 @@ const event = await eventService.execute({
     address
 });
 return res.json(event);
+    }
+
+    public async findByName(req,res:Response):Promise<Response>{
+        const {name} = req.query;
+        const findEventService = container.resolve(SearchEventService);
+
+        const event = await findEventService.execute({
+          name
+        });
+        return res.json(event);
     }
 }

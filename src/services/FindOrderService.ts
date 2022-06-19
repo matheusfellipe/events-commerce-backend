@@ -10,7 +10,7 @@ interface Request{
 }
 
 @injectable()
-class FindOneService{
+class FindOrderService{
 eventRepository: EventRepository;
 orderRepository: OrderRepository;
 userRepository:UserRepository;
@@ -28,4 +28,4 @@ this.userRepository = userRepository;
     }
 }
 
-export default FindOneService;
+export default FindOrderService;
