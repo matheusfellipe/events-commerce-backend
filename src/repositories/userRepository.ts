@@ -44,6 +44,11 @@ class userRepository implements userInterface {
         return findUser;
       
       }  
+
+      public async getAllUser(): Promise<User> {
+        const [user] = await datasource.manager.find(User)
+        return user;
+      }
     
     }
 

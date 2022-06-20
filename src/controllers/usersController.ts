@@ -1,10 +1,11 @@
 import { Request, Response } from 'express';
 
 import CreateUserService from '../services/CreateUserService';
+import FindAllUsersService from '../services/FindAllUserService';
 
-import { autoInjectable, container } from 'tsyringe';
+import { container } from 'tsyringe';
 
-@autoInjectable()
+
 export default class UsersController {
   public async create(request: Request, response: Response): Promise<Response> {
     const { email, userName,password,isAdmin } = request.body;
@@ -18,5 +19,11 @@ export default class UsersController {
     });
 
     return response.json(user);
+  }
+
+  public async getUser(request:Request,response:Response): Promise<Response>{
+    const findUser = container.resolve(FindAllUsersService);
+    const user = await findUser.execute
+    return response.json(user)
   }
 }

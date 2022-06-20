@@ -12,4 +12,5 @@ export default interface EventInterface {
     findByName(name:string): Promise<Event|undefined>;
     findAllById(event:FindEvent[]): Promise<Event[]>;
     updateQuantity(event:UpdateTickets[]): Promise<Event[]>;
+    getEvent():Promise<Event|undefined>
 }

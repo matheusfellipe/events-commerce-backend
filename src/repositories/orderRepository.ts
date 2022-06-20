@@ -22,6 +22,9 @@ class OrderRepository implements OrderInterface{
      const order = await Order.findOne({
 
  relations: ['order_events','user'],
+ where:{
+      orders_id:order_id
+ }
      })
 
      return order;

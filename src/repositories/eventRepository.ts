@@ -57,6 +57,12 @@ class eventRepository implements EventInterface {
         return 
        
     }
+
+    public async getEvent(): Promise<Events> {
+        const event = await datasource.manager.query(`SELECT * FROM "EVENT"`);
+        console.log(event)
+        return event;
+    }
 }
 
 export default eventRepository;

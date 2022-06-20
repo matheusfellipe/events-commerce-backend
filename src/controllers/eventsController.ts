@@ -2,8 +2,10 @@ import { Request,response,Response } from "express";
 
 import CreateEventService from "../services/CreateEventService";
 import SearchEventService from "../services/SearchEventService";
+import FindAllEventsService from "../services/FindAllEventService"; "../services/FindAllEventService";
 
 import { container } from "tsyringe";
+
 
 export default class eventsController {
     public async create(req:Request,res:Response):Promise<Response>{
@@ -28,5 +30,12 @@ return res.json(event);
           name
         });
         return res.json(event);
+    }
+
+    public async findAllEvent(req:Request,res:Response):Promise<Response>{
+        const findEvent = container.resolve(FindAllEventsService);
+
+        const event = await findEvent.execute
+        return res.json(event)
     }
 }
