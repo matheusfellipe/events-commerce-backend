@@ -10,11 +10,11 @@ services:
             - ./pgdata:/var/lib/postgresql/data
         ports:
             - "5433:5432"
-    # app:
-    #     container_name: julius-api
-    #     restart: always
-    #     build: .
-    #     ports:
-    #         - "3000:3000"
-    #     depends_on:
-    #         - db
+    app:
+        container_name: events-commerce-api
+        restart: always
+        build: .
+        ports:
+            - "3000:3000"
+        depends_on:
+            - db
