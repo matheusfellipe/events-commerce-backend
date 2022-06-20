@@ -34,7 +34,7 @@ export default class Event extends BaseEntity {
   address: string;
 
   @OneToMany(()=>OrdersEvents,orderEvents => orderEvents.order)
-  order_Events: OrdersEvents[];
+  order_events: OrdersEvents[];
 
   @CreateDateColumn()
   created_at: Date;

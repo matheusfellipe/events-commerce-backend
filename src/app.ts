@@ -5,6 +5,7 @@ import * as logger from 'morgan';
 import { AppDataSource } from './db';
 import * as swaggerUi from 'swagger-ui-express';
 import * as swaggerDocument from 'swagger-jsdoc';
+import "reflect-metadata";
 
 import userRoutes from './routes/usersRoute';
 import eventRoutes from './routes/eventRoute';

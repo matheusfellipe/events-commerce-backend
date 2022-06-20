@@ -1,6 +1,8 @@
 import { injectable } from "tsyringe";
+import "reflect-metadata";
 
 import Order from "../models/Orders";
+import {internalServerError,badRequest,noContent,notFound,ok} from "../utils/generics.responses"
 
 import EventRepository from "../repositories/eventRepository";
 import UserRepository from "../repositories/userRepository";
@@ -39,7 +41,7 @@ public async execute({user_id,event}:Request):Promise<Order>{
     const eventFind = await this.eventRepository.findAllById(
 event.map(event=>({event_id:event.event_id})),
     );
-
+console.log(event)
     if(event.length !== eventFind.length){
         throw new Error('Event not found')
     }
@@ -53,18 +55,23 @@ event.map(event=>({event_id:event.event_id})),
         }
     });
 
-    const order = await this.orderRepository.create({
-        user,
-        event:event.map(event=>({
-            event_id:event.event_id,
-            price:eventFind.find(({event_id})=>event_id===event.event_id)?.price||0,
-            tickets:event.tickets,
-        })),
-    });
-
-    await this.eventRepository.updateQuantity(event);
-
-    return order;
+    try {
+        const order = await this.orderRepository.create({
+            user,
+            event:event.map(event=>({
+                event_id:event.event_id,
+                price:eventFind.find(({event_id})=>event_id===event.event_id)?.price||0,
+                tickets:event.tickets,
+            })),
+        });
+    
+        await this.eventRepository.updateQuantity(event);
+    
+        return order;
+    } catch (error) {
+        console.log(error.name + ":" + error.message + internalServerError);
+    }
+  
 }
 }
 
