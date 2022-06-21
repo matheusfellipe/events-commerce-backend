@@ -5,7 +5,7 @@ import {
     UpdateDateColumn,
     PrimaryGeneratedColumn,
     OneToMany,
-    BaseEntity,
+   
    
    
   } from "typeorm";
@@ -14,7 +14,7 @@ import {
  
 
   @Entity("event")
-export default class Event extends BaseEntity {
+export default class Event {
   @PrimaryGeneratedColumn("increment")
   event_id: number;
 

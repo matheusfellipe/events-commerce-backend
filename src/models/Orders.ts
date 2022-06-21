@@ -1,10 +1,10 @@
-import { Entity, Column, CreateDateColumn, PrimaryGeneratedColumn, BaseEntity, ManyToOne, JoinColumn, OneToMany, UpdateDateColumn } from "typeorm";
+import { Entity,  CreateDateColumn, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToMany, UpdateDateColumn } from "typeorm";
 
 import  User  from "./Users";
 import OrdersEvents from "./OrdersEvents";
 
 @Entity('order')
-export class Order extends BaseEntity {
+export class Order  {
   @PrimaryGeneratedColumn()
   orders_id: number;
 

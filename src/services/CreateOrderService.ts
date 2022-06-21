@@ -1,12 +1,13 @@
-import { injectable } from "tsyringe";
+import { injectable,inject } from "tsyringe";
 import "reflect-metadata";
 
 import Order from "../models/Orders";
 import {internalServerError,badRequest,noContent,notFound,ok} from "../utils/generics.responses"
 
-import EventRepository from "../repositories/eventRepository";
-import UserRepository from "../repositories/userRepository";
-import OrderRepository from "../repositories/orderRepository";
+
+import orderRepository from "../repositories/orderRepository";
+import eventRepository from "../repositories/eventRepository";
+import userRepository from "../repositories/userRepository";
 
 
 interface Event{
@@ -21,15 +22,17 @@ interface Request{
 
 @injectable()
 class CreateOrderService {
-eventRepository:EventRepository;
-orderRepository: OrderRepository;
-userRepository:UserRepository;
 
-constructor(eventRepository:EventRepository,orderRepository:OrderRepository,userRepository:UserRepository){
-this.eventRepository = eventRepository;
-this.orderRepository = orderRepository;
-this.userRepository = userRepository;
-}
+    constructor(
+        @inject('OrdersRepository')
+    private orderRepository:orderRepository,
+
+    @inject('EventRepository')
+    private eventRepository:eventRepository,
+
+    @inject('UserRepository')
+    private userRepository:userRepository
+    ){}
 
 public async execute({user_id,event}:Request):Promise<Order>{
     const user = await this.userRepository.findById(user_id);

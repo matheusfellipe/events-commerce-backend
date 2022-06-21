@@ -4,7 +4,7 @@ import EventBody from "../interfaces/eventCreate";
 import UpdateEvents from "../interfaces/updateTicketQuantity";
 import EventInterface from "../interfaces/eventInterface";
 import Events from "../models/Events";
-import { In } from "typeorm";
+import { In, Repository } from "typeorm";
 
 const datasource = AppDataSource;
 
@@ -13,8 +13,15 @@ interface FindEvent{
 }
 
 class eventRepository implements EventInterface {
+    private ormRepository: Repository<Events>
+constructor(){
+    this.ormRepository = datasource.manager.getRepository(Events);
+}
+
     public async create({name,price,description,tickets,address}: EventBody): Promise<Events> {
-        const event = await datasource.manager.create(Events,{
+
+
+        const event = await this.ormRepository.create({
             name,
             price,
             description,
@@ -22,12 +29,12 @@ class eventRepository implements EventInterface {
             address
 
         })
-        await event.save();
+        await this.ormRepository.save(event);
         return event;
     }
 
     public async findByName(name:string):Promise<Events | undefined>{
-        const findEvent = await datasource.manager.findOne(Events,{
+        const findEvent = await this.ormRepository.findOne({
             where: {
                 name,
             }
@@ -38,13 +45,15 @@ class eventRepository implements EventInterface {
     public async findAllById(event: FindEvent[]): Promise<Events[]> {
         const ids = event.map(product=>product.event_id);
         
-        const findEvent = await datasource.manager.findBy(Events,{
+        const findEvent = await this.ormRepository.findBy({
             event_id:  In([ids])
         })
         return findEvent;
     }
 
-    public async updateQuantity(event: UpdateEvents[]): Promise<Events[]> {
+    public async updateQuantity(
+        event: UpdateEvents[],
+        ): Promise<Events[]> {
         const eventFind = await this.findAllById(event);
 
         const updateEvent = eventFind.map(even=>({
@@ -53,8 +62,8 @@ class eventRepository implements EventInterface {
             even.tickets - (event.find(e=>even.event_id===e.event_id)?.tickets||0),
         }));
 
-        await datasource.manager.save(updateEvent)
-        return 
+        await this.ormRepository.save(updateEvent);
+        return updateEvent;
        
     }
 
